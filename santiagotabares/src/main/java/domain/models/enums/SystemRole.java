@@ -9,4 +9,5 @@ public enum SystemRole {
     COMPANY_EMPLOYEE,
     COMPANY_SUPERVISOR,
     INTERNAL_ANALYST
+    
 }

@@ -20,4 +20,5 @@ public class OperationLog {
     private String affectedProductId;
     private Map<String, Object> detailData;
     
+    
 }
