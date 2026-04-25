@@ -1,28 +1,38 @@
 package domain.models;
+
 import java.util.*;
-
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
+import domain.Exceptions.BusinessException;
+import domain.models.enums.UserStatus;
 public abstract class Client {
 
-    private String name;
-    private String identification;
-    private String email;
-    private String phone;
-    private String address;
-    private List<BankProduct> products;
+    protected String name;
+    protected String identification;
+    protected String email;
+    protected String phone;
+    protected String address;
+    protected UserStatus status;
+    protected List<BankProduct> products;
 
 
-    //Constructor
-    public Client(String name,String identification,String email,String phone,String address){
-        this.name = name;
-        this.identification = identification;
+    //Metodo para validar si el cliente esta activo
+    public boolean isActive(){
+        return status == status.ACTIVE;
+    }
+
+    //Metodo para actualizar la informacion del cliente
+    public void updateContactInfo(String email,String phone,String address){
+
+        if(email == null || !email.contains("@")){
+            throw new BusinessException("Correo invalido.");
+        }
         this.email = email;
         this.phone = phone;
         this.address = address;
+    }
+
+    //get client
+    public String getId(){
+        return identification;
     }
 
 }

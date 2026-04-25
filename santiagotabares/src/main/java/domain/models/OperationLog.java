@@ -1,24 +1,25 @@
 package domain.models;
 
-import java.time.LocalDate;
-import java.util.*;
-
-import domain.models.enums.SystemRole;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
+import java.time.LocalDateTime;
+import java.util.Map;
 
 public class OperationLog {
 
-    private String logId;
     private String operationType;
-    private LocalDate timestamp;
-    private int userId;
-    private SystemRole userRole;
-    private String affectedProductId;
-    private Map<String, Object> detailData;
-    
-    
+    private String productId;
+    private LocalDateTime operationDate;
+    private Map<String, Object> detail;
+
+    public static OperationLog register(
+            String operationType,
+            String productId,
+            Map<String, Object> detail
+    ) {
+        OperationLog log = new OperationLog();
+        log.operationType = operationType;
+        log.productId = productId;
+        log.detail = detail;
+        log.operationDate = LocalDateTime.now();
+        return log;
+    }
 }

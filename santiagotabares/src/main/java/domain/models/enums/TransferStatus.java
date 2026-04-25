@@ -2,8 +2,12 @@ package domain.models.enums;
 
 public enum TransferStatus {
 
-    PENDING_APPROVAL,
+    
+    PENDING,
+    WAITING_FOR_APPROVAL,
+    APPROVED,
     EXECUTED,
     REJECTED,
     EXPIRED
+
 }

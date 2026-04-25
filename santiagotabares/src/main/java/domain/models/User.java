@@ -1,23 +1,25 @@
 package domain.models;
 
-import lombok.Getter;
-import lombok.Setter;
-import java.util.*;
-
-import domain.models.enums.*;
-@Getter
-@Setter
+import domain.models.enums.SystemRole;
+import domain.models.enums.UserStatus;
 
 public class User {
-    private int userId;
-    private String fullName;
-    private String identificationNumber;
-    private String email;
-    private String phone;
-    private String address;
+
+    private Long id;
     private SystemRole role;
     private UserStatus status;
 
-    private List<Transfer> transfersCreated;
+    public void activate() {
+        status = UserStatus.ACTIVE;
+    }
 
+    public void block() {
+        status = UserStatus.BLOCKED;
+    }
+
+    public void assignRole(SystemRole role) {
+        this.role = role;
+    }
+    public Long getId() { return id; }
+    public domain.models.enums.UserStatus getStatus() { return status; }
 }

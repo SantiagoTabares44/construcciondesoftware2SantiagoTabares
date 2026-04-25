@@ -1,17 +1,21 @@
 package domain.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import domain.models.enums.*;
 
-@Getter
-@Setter
 public class CompanyClient extends Client{
 
     private String companyName;
     private String taxId;
 
-    public CompanyClient(String name,String identification, String email, String phone, String address,String companyName,String taxId) {
-        super(name,identification, email, phone, address);
+    public static CompanyClient create(String taxId, String companyName){
+        CompanyClient company = new CompanyClient();
+        company.identification = taxId;
+        company.taxId = taxId;
+        company.companyName = companyName;
+        company.status = UserStatus.ACTIVE;
+
+        
+        return company;
     }
 
 

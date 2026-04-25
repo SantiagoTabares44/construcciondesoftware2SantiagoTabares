@@ -1,22 +1,24 @@
 package domain.models;
 
-import java.time.LocalDate;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+
 
 public abstract class BankProduct {
 
-    private String productId;
-    private LocalDate creationDate;
+    
+    private String code;
+    private String name;
+    private boolean requiresApproval;
 
-    public BankProduct(String productId, LocalDate creationDate) {
-        this.productId = productId;
-        this.creationDate = creationDate;
+    public boolean requiresApproval() {
+        return requiresApproval;
     }
+
+    public String getCode() {
+        return code;
+    }
+
 
 
 

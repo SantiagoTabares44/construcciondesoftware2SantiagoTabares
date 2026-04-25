@@ -1,121 +1,66 @@
 package domain.models;
 
-import java.time.LocalDate;
+import domain.Exceptions.BusinessException;
+import domain.models.enums.AccountStatus;
 
+import java.math.BigDecimal;
 
-import domain.models.enums.*;
-
-
-public class BankAccount extends BankProduct{
+public class BankAccount {
 
     private String accountNumber;
-    private AccountType accountType;
-    private double currentBalance;
+    private Client owner;
+    private BankProduct product;
+    private BigDecimal balance;
     private AccountStatus status;
-    private LocalDate openingDate;
-    private String UserAccountID; 
+    private String currency;
 
-    public BankAccount(String productId, LocalDate creationDate,String accountNumber,AccountType accountType,double currentBalance){
-        super(productId, creationDate);
-        this.accountNumber = accountNumber;
-        this.accountType = accountType;
-        this.currentBalance = currentBalance;
+    public static BankAccount open(
+            String accountNumber,
+            Client owner,
+            BankProduct product,
+            String currency
+    ) {
+        BankAccount account = new BankAccount();
+        account.accountNumber = accountNumber;
+        account.owner = owner;
+        account.product = product;
+        account.currency = currency;
+        account.balance = BigDecimal.ZERO;
+        account.status = AccountStatus.ACTIVE;
+        return account;
+    }
 
-        if (accountNumber == null || accountNumber.trim().isEmpty()) {
-            throw new IllegalArgumentException("El numero de cuenta es obligatorio.");
+    public void deposit(BigDecimal amount) {
+        validateOperative();
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BusinessException("El valor a depositar debe ser mayor a 0.");
         }
-        if (currentBalance < 0) {
-            throw new IllegalArgumentException("El saldo actual no puede ser negativo.");
+        balance = balance.add(amount);
+    }
+
+    public void withdraw(BigDecimal amount) {
+        validateOperative();
+        if (balance.compareTo(amount) < 0) {
+            throw new BusinessException("Fondos insuficientes.");
         }
-        if (UserAccountID == null || UserAccountID.trim().isEmpty()) {
-            throw new IllegalArgumentException("El titular de la cuenta es obligatorio.");
-        }
-        if (openingDate == null || openingDate.toString().isEmpty()) {
-            throw new IllegalArgumentException("La fecha de apertura de la cuenta es obligatoria.");
+        balance = balance.subtract(amount);
+    }
+
+    public void block() {
+        status = AccountStatus.BLOCKED;
+    }
+
+    private void validateOperative() {
+        if (status != AccountStatus.ACTIVE) {
+            throw new BusinessException("Esta cuenta no esta activa.");
         }
     }
 
-    //getter and setter
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
     public String getAccountNumber() {
         return accountNumber;
     }
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public String getUserAccountID() {
-        return UserAccountID;
-    }
-
-    public double getCurrentBalance(){
-        return currentBalance;
-    }
-
-    public AccountStatus getAccountStatus(){
-        return status;
-    }
-
-    public LocalDate getOpeningLocalDate(){
-        return openingDate;
-    }
-
-    public void setAccountNumber(String NewAccountNumber){
-        if(NewAccountNumber == null || NewAccountNumber.trim().isEmpty()){
-            throw new IllegalArgumentException("Numero de cuenta obligatorio.");
-
-        }
-        this.accountNumber = NewAccountNumber;
-    }
-
-    public void setAccountType(AccountType NewaccountType){
-        this.accountType = accountType;
-    }
-
-    public void setUserAccountID(String NewUserAccountID){
-        if (NewUserAccountID == null || NewUserAccountID.trim().isEmpty()) {
-            throw new IllegalArgumentException("El Usuario titular debe ser obligatorio.");
-        }
-        this.UserAccountID = NewUserAccountID;
-    }
-
-    public void setAccountStatus(AccountStatus NewStatus){
-        this.status = NewStatus;
-    }
-
-    public void setOpeningDate(String NewOpeningDate){
-        if (NewOpeningDate == null || NewOpeningDate.toString().trim().isEmpty()) {
-            throw new IllegalArgumentException("La fecha de apertura es obligatoria.");
-        }
-        this.openingDate = LocalDate.parse(NewOpeningDate);
-    }
-
-    
-    //Metodos de negocio
-
-    public void deposit(double amount){
-        if(amount <= 0){
-            throw new IllegalArgumentException("El monto a ingresar es invalido.");
-        }
-        if(this.status != status.ACTIVE){
-            throw new IllegalStateException("No se puede depositar el monto. Cuenta inactiva");
-        
-        }
-        this.currentBalance += amount;
-    }
-
-    public void withdraw(double amount){
-        if (amount <= 0) {
-            throw new IllegalArgumentException("El monto a retirar es diferente al minimo permitido.");
-        }
-        if (this.status != AccountStatus.ACTIVE) {
-            throw new IllegalStateException("No se puede retirar el monto. Cuenta inactiva");
-        }
-        if (this.currentBalance < amount) {
-            throw new IllegalStateException("Fondos insuficientes - Saldo actual: " + this.currentBalance);
-        }
-        this.currentBalance -= amount;
-    }
-
-
 }
