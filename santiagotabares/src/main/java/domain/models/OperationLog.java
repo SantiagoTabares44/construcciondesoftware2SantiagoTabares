@@ -22,4 +22,23 @@ public class OperationLog {
         log.operationDate = LocalDateTime.now();
         return log;
     }
+    // Usado SOLO por infraestructura para reconstruir desde base de datos
+    public static OperationLog reconstitute(
+            String operationType,
+            String productId,
+            java.time.LocalDateTime operationDate,
+            java.util.Map<String, Object> detail
+    ) {
+        OperationLog log = new OperationLog();
+        log.operationType = operationType;
+        log.productId = productId;
+        log.operationDate = operationDate;
+        log.detail = detail;
+        return log;
+    }
+
+    public String getOperationType() { return operationType; }
+    public String getProductId() { return productId; }
+    public java.time.LocalDateTime getOperationDate() { return operationDate; }
+    public java.util.Map<String, Object> getDetail() { return detail; }
 }

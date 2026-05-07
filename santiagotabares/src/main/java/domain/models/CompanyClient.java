@@ -17,6 +17,6 @@ public class CompanyClient extends Client{
         
         return company;
     }
-
-
+    public String getCompanyName() { return companyName; }
+    public String getTaxId() { return taxId; }
 }

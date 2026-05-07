@@ -3,7 +3,6 @@ package domain.models;
 import java.time.LocalDate;
 import java.time.Period;
 
-import org.springframework.cglib.core.Local;
 
 import domain.Exceptions.BusinessException;
 import domain.models.enums.*;
@@ -34,9 +33,11 @@ public class NaturalPerson extends Client {
         NaturalPerson person = new NaturalPerson();
         person.identification = id;
         person.name = fullName;
+        person.fullName = fullName;
         person.birthDate = birthDate;
         person.status = UserStatus.ACTIVE;
 
         return person;
     }
+    public String getFullName() { return fullName; }
 }

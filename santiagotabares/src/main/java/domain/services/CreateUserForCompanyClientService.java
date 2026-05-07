@@ -1,5 +1,7 @@
 package domain.services;
 
+import domain.Exceptions.BusinessException;
+import domain.models.Client;
 import domain.models.OperationLog;
 import domain.models.User;
 import domain.ports.ClientRepositoryPort;

@@ -4,6 +4,7 @@ import domain.Exceptions.BusinessException;
 import domain.models.enums.TransferStatus;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import java.time.LocalDateTime;
 
 public class Transfer {
@@ -25,6 +26,7 @@ public class Transfer {
         }
 
         Transfer transfer = new Transfer();
+        transfer.id = UUID.randomUUID().toString();
         transfer.origin = origin;
         transfer.destination = destination;
         transfer.amount = amount;
@@ -62,4 +64,24 @@ public class Transfer {
     public BankAccount getDestination() { return destination; }
     public BigDecimal getAmount() { return amount; }
     public TransferStatus getStatus() { return status; }
+    // Usado SOLO por infraestructura para reconstruir desde base de datos
+    public static Transfer reconstitute(
+            String id,
+            BankAccount origin,
+            BankAccount destination,
+            java.math.BigDecimal amount,
+            domain.models.enums.TransferStatus status,
+            java.time.LocalDateTime createdAt
+    ) {
+        Transfer t = new Transfer();
+        t.id = id;
+        t.origin = origin;
+        t.destination = destination;
+        t.amount = amount;
+        t.status = status;
+        t.createdAt = createdAt;
+        return t;
+    }
+
+    public java.time.LocalDateTime getCreatedAt() { return createdAt; }
 }

@@ -16,7 +16,7 @@ public abstract class Client {
 
     //Metodo para validar si el cliente esta activo
     public boolean isActive(){
-        return status == status.ACTIVE;
+        return status == UserStatus.ACTIVE;
     }
 
     //Metodo para actualizar la informacion del cliente
@@ -34,5 +34,9 @@ public abstract class Client {
     public String getId(){
         return identification;
     }
-
+    public String getEmail() { return email; }
+    public String getPhone() { return phone; }
+    public String getAddress() { return address; }
+    public domain.models.enums.UserStatus getStatus() { return status; }
+    public String getName() { return name; }
 }

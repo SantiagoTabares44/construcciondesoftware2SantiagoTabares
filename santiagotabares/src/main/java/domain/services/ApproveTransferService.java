@@ -1,6 +1,7 @@
 package domain.services;
 
 import domain.Exceptions.BusinessException;
+import domain.models.BankAccount;
 import domain.models.OperationLog;
 import domain.models.Transfer;
 import domain.ports.ApproveTransferPort;

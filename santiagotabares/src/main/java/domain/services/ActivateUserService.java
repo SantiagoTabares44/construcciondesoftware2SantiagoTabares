@@ -7,6 +7,7 @@ import domain.ports.ActivateUserPort;
 import domain.ports.RegisterOperationLogPort;
 import domain.ports.UserRepositoryPort;
 
+import java.util.Map;
 
 public class ActivateUserService implements ActivateUserPort {
 

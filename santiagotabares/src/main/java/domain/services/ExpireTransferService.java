@@ -3,6 +3,7 @@ package domain.services;
 import domain.Exceptions.BusinessException;
 import domain.models.OperationLog;
 import domain.models.Transfer;
+import domain.models.enums.TransferStatus;
 import domain.ports.ExpireTransferPort;
 import domain.ports.RegisterOperationLogPort;
 import domain.ports.TransferRepositoryPort;

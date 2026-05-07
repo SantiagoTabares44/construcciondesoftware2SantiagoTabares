@@ -57,4 +57,15 @@ public class Loan {
     public String getClientId() {
         return client != null ? client.getId() : null;
     }
+    // Usado SOLO por infraestructura para reconstruir desde base de datos
+    public static Loan reconstitute(String id, Client client, java.math.BigDecimal approvedAmount, domain.models.enums.LoanStatus status) {
+        Loan loan = new Loan();
+        loan.id = id;
+        loan.client = client;
+        loan.approvedAmount = approvedAmount;
+        loan.status = status;
+        return loan;
+    }
+
+    public Client getClient() { return client; }
 }

@@ -63,4 +63,26 @@ public class BankAccount {
     public String getAccountNumber() {
         return accountNumber;
     }
+    // Usado SOLO por la capa de infraestructura para reconstruir
+    // el objeto desde base de datos, sin ejecutar reglas de negocio.
+    public static BankAccount reconstitute(
+            String accountNumber,
+            Client owner,
+            java.math.BigDecimal balance,
+            domain.models.enums.AccountStatus status,
+            String currency
+    ) {
+        BankAccount account = new BankAccount();
+        account.accountNumber = accountNumber;
+        account.owner = owner;
+        account.balance = balance;
+        account.status = status;
+        account.currency = currency;
+        return account;
+    }
+
+    public domain.models.enums.AccountStatus getStatus() { return status; }
+    public String getCurrency() { return currency; }
+    public Client getOwner() { return owner; }
+    public BankProduct getProduct() { return product; }
 }
