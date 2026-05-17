@@ -85,4 +85,11 @@ public class BankAccount {
     public String getCurrency() { return currency; }
     public Client getOwner() { return owner; }
     public BankProduct getProduct() { return product; }
+
+    public static BankAccount stub(String accountNumber) {
+    BankAccount account = new BankAccount();
+    account.accountNumber = accountNumber;
+    return account;
+}
+
 }

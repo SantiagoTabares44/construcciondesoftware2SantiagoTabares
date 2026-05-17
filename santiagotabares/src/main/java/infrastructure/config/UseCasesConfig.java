@@ -1,56 +1,16 @@
 package infrastructure.config;
 
 import domain.ports.*;
-import infrastructure.persistence.adapters.BankProductRepositoryAdapter;
 import domain.services.*;
-import infrastructure.persistence.adapters.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 // @Configuration le dice a Spring que esta clase declara beans
-// Cada @Bean es un "caso de uso" que Spring crea y gestiona
+// Cada @Bean es un "caso de uso" que Spring crea y gestiona.
+// Los adaptadores JPA (@Repository en infrastructure.persistence.adapters)
+// ya implementan los *RepositoryPort y se inyectan directamente.
 @Configuration
 public class UseCasesConfig {
-
-    // ─────────────────────────────────────────────────────────
-    // ADAPTADORES (repositorios concretos)
-    // Spring los inyecta donde se necesite el port correspondiente
-    // ─────────────────────────────────────────────────────────
-
-    @Bean
-    public ClientRepositoryPort clientRepositoryPort(ClientRepositoryAdapter adapter) {
-        return adapter;
-    }
-
-    @Bean
-    public BankAccountRepositoryPort bankAccountRepositoryPort(BankAccountRepositoryAdapter adapter) {
-        return adapter;
-    }
-
-    @Bean
-    public LoanRepositoryPort loanRepositoryPort(LoanRepositoryAdapter adapter) {
-        return adapter;
-    }
-
-    @Bean
-    public TransferRepositoryPort transferRepositoryPort(TransferRepositoryAdapter adapter) {
-        return adapter;
-    }
-
-    @Bean
-    public UserRepositoryPort userRepositoryPort(UserRepositoryAdapter adapter) {
-        return adapter;
-    }
-
-    @Bean
-    public OperationLogRepositoryPort operationLogRepositoryPort(OperationLogRepositoryAdapter adapter) {
-        return adapter;
-    }
-
-    @Bean
-    public BankProductRepositoryPort bankProductRepositoryPort(BankProductRepositoryAdapter adapter) {
-        return adapter;
-    }
 
     // ─────────────────────────────────────────────────────────
     // CASO DE USO: Auditoría

@@ -11,6 +11,19 @@ public class Loan {
     private Client client;
     private BigDecimal approvedAmount;
     private LoanStatus status;
+    private String clientIdRef; // usado cuando se crea desde el controller
+
+
+    // Sobrecarga para crear préstamo cuando solo se tiene el clientId (desde el controller)
+    public static Loan create(String id, String clientId) {
+        Loan loan = new Loan();
+        loan.id = id;
+        // Client stub — el service carga el cliente completo desde la BD
+        loan.client = null;
+        loan.clientIdRef = clientId;
+        loan.status = LoanStatus.UNDER_REVIEW;
+        return loan;
+    }
 
     public static Loan create(String id, Client client) {
         Loan loan = new Loan();
@@ -55,7 +68,8 @@ public class Loan {
     }
 
     public String getClientId() {
-        return client != null ? client.getId() : null;
+        if (client != null) return client.getId();
+        return clientIdRef;
     }
     // Usado SOLO por infraestructura para reconstruir desde base de datos
     public static Loan reconstitute(String id, Client client, java.math.BigDecimal approvedAmount, domain.models.enums.LoanStatus status) {

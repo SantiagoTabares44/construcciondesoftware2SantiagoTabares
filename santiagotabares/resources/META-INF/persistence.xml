@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
+        <class>infrastructure.persistence.entities.BankAccountJpaEntity</class>
+        <class>infrastructure.persistence.entities.BankProductJpaEntity</class>
+        <class>infrastructure.persistence.entities.ClientJpaEntity</class>
+        <class>infrastructure.persistence.entities.CompanyClientJpaEntity</class>
+        <class>infrastructure.persistence.entities.NaturalPersonJpaEntity</class>
+        <class>infrastructure.persistence.entities.LoanJpaEntity</class>
+        <class>infrastructure.persistence.entities.OperationLogJpaEntity</class>
+        <class>infrastructure.persistence.entities.TransferJpaEntity</class>
+        <class>infrastructure.persistence.entities.UserJpaEntity</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    </persistence-unit>
+
+</persistence>
